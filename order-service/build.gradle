@@ -16,6 +16,8 @@ dependencies {
   // noinspection ALL
   implementation rootProject.ext.libraries['boot-starter-validation']
   // noinspection ALL
+  implementation rootProject.ext.libraries['cloud-starter-netflix-eureka-client']
+  // noinspection ALL
   implementation rootProject.ext.libraries['jackson-dataformat-xml']
   // noinspection ALL
   implementation rootProject.ext.libraries['boot-starter-data-jpa']

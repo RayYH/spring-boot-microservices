@@ -8,3 +8,10 @@ spring:
       database: product-service
 server:
   port: 8080
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/

@@ -14,6 +14,8 @@ dependencies {
   // noinspection ALL
   implementation rootProject.ext.libraries['boot-starter-validation']
   // noinspection ALL
+  implementation rootProject.ext.libraries['cloud-starter-netflix-eureka-client']
+  // noinspection ALL
   implementation rootProject.ext.libraries['jackson-dataformat-xml']
   // noinspection ALL
   implementation rootProject.ext.libraries['boot-starter-data-jpa']
@@ -21,7 +23,7 @@ dependencies {
   runtimeOnly rootProject.ext.libraries['h2']
   // noinspection ALL
   runtimeOnly rootProject.ext.libraries['mysql']
-    // noinspection ALL
+  // noinspection ALL
   runtimeOnly rootProject.ext.libraries['postgresql']
   // noinspection ALL
   implementation rootProject.ext.libraries['jsr305']
