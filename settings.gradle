@@ -1,0 +1,19 @@
+pluginManagement {
+  repositories {
+    gradlePluginPortal()
+  }
+  
+  plugins {
+    // use ./gradlew dependencyManagement to find all the managed dependencies and their versions
+    id 'io.spring.dependency-management' version "${io_spring_dependency_management_version}"
+    id 'org.springframework.boot' version "${spring_boot_version}"
+    // detects publicly disclosed vulnerabilities in application dependencies
+    // run ./gradlew dependencyCheckAnalyze
+    id 'org.owasp.dependencycheck' version "${org_owasp_dependencycheck_version}"
+    id 'com.github.jakemarsden.git-hooks' version "${com_github_jakemarsden_git_hooks}"
+    id 'com.bmuschko.docker-remote-api' version "${com_bmuschko_docker_remote_api}"
+    id 'com.google.protobuf' version "${com_google_protobuf}"
+  }
+}
+
+rootProject.name = 'spring-boot-microservices'

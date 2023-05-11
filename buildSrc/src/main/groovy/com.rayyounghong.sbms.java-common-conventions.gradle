@@ -1,0 +1,24 @@
+plugins {
+  id 'java'
+  id 'jacoco'
+}
+
+dependencies {
+  // noinspection ALL
+  testImplementation rootProject.ext.libraries['junit-jupiter']
+}
+
+testing {
+  // noinspection ALL
+  suites {
+    // noinspection ALL
+    test(JvmTestSuite) {
+      // noinspection ALL
+      useJUnitJupiter()
+    }
+  }
+}
+
+tasks.named("jacocoTestReport") {
+  enabled = false
+}

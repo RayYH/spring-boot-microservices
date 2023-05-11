@@ -1,0 +1,6 @@
+// Test this script: ./gradlew --init-script init.gradle -q showRepos
+allprojects {
+  repositories {
+    jcenter()
+  }
+}

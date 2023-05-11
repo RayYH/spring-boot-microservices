@@ -1,0 +1,55 @@
+plugins {
+  id "io.spring.dependency-management"
+  id "checkstyle"
+}
+
+
+apply from: 'lib.gradle'
+
+allprojects {
+  group = 'com.rayyounghong.sbms'
+  
+  repositories {
+    mavenCentral()
+    maven { url = uri("https://jcenter.bintray.com") }
+  }
+}
+
+subprojects {
+  apply plugin: 'java'
+  apply plugin: 'io.spring.dependency-management'
+  apply plugin: "checkstyle"
+  
+  dependencyManagement {
+    imports {
+      // noinspection ALL
+      mavenBom("org.springframework.boot:spring-boot-dependencies:${spring_boot_version}")
+      // noinspection ALL
+      mavenBom("org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_version}")
+      // noinspection ALL
+      mavenBom("de.codecentric:spring-boot-admin-dependencies:${spring_boot_admin_version}")
+      // noinspection ALL
+      mavenBom("io.grpc:grpc-bom:${io_grpc_version}")
+      // noinspection ALL
+      mavenBom("com.google.protobuf:protobuf-bom:${protobuf_java_version}")
+      // noinspection ALL
+      mavenBom("org.springframework.cloud:spring-cloud-sleuth-otel-dependencies:${spring_cloud_sleuth_otel_version}")
+    }
+  }
+  
+  configurations.configureEach {
+    resolutionStrategy {
+      // don't cache changing modules at all
+      // noinspection ALL
+      cacheChangingModulesFor 0, 'seconds'
+    }
+  }
+}
+
+tasks.register('showRepos') {
+  def repositoryNames = repositories.collect { it.name }
+  doLast {
+    println "All repos:"
+    println repositoryNames
+  }
+}
