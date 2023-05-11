@@ -31,6 +31,7 @@ public class InventoryServiceImpl implements IInventoryService {
         .stream()
         .collect(Collectors.toMap(Inventory::getSkuCode, inventory -> inventory, (a, b) -> a));
 
+    log.warn("Inventory: {}", inventories);
     // determine each skuCode is in stock or not
     return skuCodes.stream().map(skuCode -> {
       InventoryResponse inventoryResponse = new InventoryResponse();

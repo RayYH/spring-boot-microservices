@@ -23,7 +23,7 @@ public class OrderServiceImpl implements IOrderService {
 
   private final OrderRepository orderRepository;
 
-  private final WebClient webClient;
+  private final WebClient.Builder webClientBuilder;
 
   public void placeOrder(OrderRequest orderRequest) {
     Order order = new Order();
@@ -42,11 +42,10 @@ public class OrderServiceImpl implements IOrderService {
         .collect(Collectors.toList());
 
     InventoryResponse[] inventoryResponses =
-        webClient.get().uri("http://localhost:8082/api/inventory", uriBuilder
+        webClientBuilder.build().get().uri("http://inventory-service/api/inventory", uriBuilder
                 -> uriBuilder.queryParam("skuCode", skuCodes).build())
             .retrieve().bodyToMono(InventoryResponse[].class).block();
 
-    log.info("InventoryResponse: {}", inventoryResponses);
     boolean allProductsInStock = false;
     if (inventoryResponses != null) {
       allProductsInStock = Arrays.stream(inventoryResponses)
