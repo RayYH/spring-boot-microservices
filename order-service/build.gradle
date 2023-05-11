@@ -16,9 +16,13 @@ dependencies {
   // noinspection ALL
   implementation rootProject.ext.libraries['jackson-dataformat-xml']
   // noinspection ALL
-  implementation rootProject.ext.libraries['boot-starter-data-mongodb']
+  implementation rootProject.ext.libraries['boot-starter-data-jpa']
   // noinspection ALL
   runtimeOnly rootProject.ext.libraries['h2']
+  // noinspection ALL
+  runtimeOnly rootProject.ext.libraries['mysql']
+    // noinspection ALL
+  runtimeOnly rootProject.ext.libraries['postgresql']
   // noinspection ALL
   implementation rootProject.ext.libraries['jsr305']
   // noinspection ALL
@@ -47,13 +51,13 @@ test {
 }
 
 springBoot {
-  mainClass.set('com.rayyounghong.sbms.productservice.ProductServiceApplication')
+  mainClass.set('com.rayyounghong.sbms.orderservice.OrderServiceApplication')
   buildInfo {
     properties {
-      artifact = 'SBMS Product Service'
+      artifact = 'Spring SBMS Order Service'
       version = rootProject.version
       group = rootProject.group
-      name = 'SBMS Product Service'
+      name = 'Spring SBMS Order Service'
     }
   }
 }

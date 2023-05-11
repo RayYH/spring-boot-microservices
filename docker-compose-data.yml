@@ -1,0 +1,31 @@
+---
+version: '3.9'
+
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:4.4
+    restart: always
+    ports:
+      - "27017:27017"
+    expose:
+      - "27017"
+    volumes:
+      - ./.data/mongo:/data/db
+
+  mysql-order-service:
+    container_name: mysql-order-service
+    image: mysql:8
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: 'order_service'
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3396:3306"
+    volumes:
+      - ./.data/mysql-order-service:/var/lib/mysql
+      - ./.conf/mysql/conf.d:/etc/mysql/conf.d
+    restart: unless-stopped

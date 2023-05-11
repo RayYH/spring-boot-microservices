@@ -36,6 +36,7 @@ ext.libraries = [
   'lombok'                      : 'org.projectlombok:lombok',
   'mybatis-plus-boot-starter'   : "com.baomidou:mybatis-plus-boot-starter:${mybatis_plus_boot_starter_version}",
   'mysql'                       : "mysql:mysql-connector-java:${mysql_connector_version}",
+  'postgresql'                  : "org.postgresql:postgresql",
   'spring-context'              : 'org.springframework:spring-context',
   'spring-secutiry-test'        : 'org.springframework.secutiry:spring-security-test',
   'spring-web'                  : 'org.springframework:spring-web',
