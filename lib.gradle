@@ -13,6 +13,7 @@ ext.libraries = [
   'boot-starter-test'           : 'org.springframework.boot:spring-boot-starter-test',
   'boot-starter-thymeleaf'      : 'org.springframework.boot:spring-boot-starter-thymeleaf',
   'boot-starter-web'            : 'org.springframework.boot:spring-boot-starter-web',
+  'boot-starter-webflux'        : 'org.springframework.boot:spring-boot-starter-webflux',
   'boot-starter-validation'     : 'org.springframework.boot:spring-boot-starter-validation',
   'commons-lang3'               : "org.apache.commons:commons-lang3:${common_lang3_version}",
   'guava'                       : "com.google.guava:guava:${com_google_guava}",
