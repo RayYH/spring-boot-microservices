@@ -1,0 +1,57 @@
+plugins {
+  id 'org.springframework.boot'
+  id 'com.rayyounghong.sbms.java-common-conventions'
+  id 'idea'
+}
+
+dependencies {
+  // noinspection ALL
+  annotationProcessor rootProject.ext.libraries['boot-configuration-processor']
+  // noinspection ALL
+  implementation rootProject.ext.libraries['boot-starter-aop']
+  // noinspection ALL
+  implementation rootProject.ext.libraries['boot-starter-web']
+  // noinspection ALL
+  implementation rootProject.ext.libraries['boot-starter-validation']
+  // noinspection ALL
+  implementation rootProject.ext.libraries['jackson-dataformat-xml']
+  // noinspection ALL
+  implementation rootProject.ext.libraries['boot-starter-thymeleaf']
+  // noinspection ALL
+  implementation rootProject.ext.libraries['boot-starter-data-mongodb']
+  // noinspection ALL
+  runtimeOnly rootProject.ext.libraries['h2']
+  // noinspection ALL
+  implementation rootProject.ext.libraries['jsr305']
+  // noinspection ALL
+  runtimeOnly rootProject.ext.libraries['h2']
+  // noinspection ALL
+  testImplementation(rootProject.ext.libraries['boot-starter-test']) {
+    exclude group: 'junit', module: 'junit'
+  }
+  // noinspection ALL
+  annotationProcessor rootProject.ext.libraries['lombok']
+  // noinspection ALL
+  compileOnly rootProject.ext.libraries['lombok']
+  // noinspection ALL
+  testCompileOnly rootProject.ext.libraries["lombok"]
+  // noinspection ALL
+  testAnnotationProcessor rootProject.ext.libraries["lombok"]
+}
+
+test {
+  // stops test execution after the first failed test.
+  failFast = true
+}
+
+springBoot {
+  mainClass.set('com.rayyounghong.practice.spb.web.Application')
+  buildInfo {
+    properties {
+      artifact = 'Spring Boot Web'
+      version = rootProject.version
+      group = rootProject.group
+      name = 'Spring Boot Web'
+    }
+  }
+}
