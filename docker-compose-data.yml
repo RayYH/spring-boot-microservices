@@ -19,10 +19,7 @@ services:
     env_file:
       - .env
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: 'order_service'
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3396:3306"
     volumes:
@@ -36,13 +33,39 @@ services:
     env_file:
       - .env
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: 'inventory_service'
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3397:3306"
     volumes:
       - ./.data/mysql-inventory-service:/var/lib/mysql
       - ./.conf/mysql/conf.d:/etc/mysql/conf.d
     restart: unless-stopped
+
+  mysql-keycloak:
+    container_name: mysql-keycloak
+    image: mysql:8
+    env_file:
+      - .env
+    volumes:
+      - ./.data/mysql-keycloak:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: keycloak
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:18.0.0
+    command: [ "start-dev", "--import-realm" ]
+    env_file:
+      - .env
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_DATABASE: keycloak
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "8181:8080"
+    #volumes:
+    #  - ./.conf/realms/:/opt/keycloak/data/import/
+    depends_on:
+      - mysql-keycloak

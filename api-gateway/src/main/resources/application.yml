@@ -28,6 +28,11 @@ spring:
           uri: lb://order-service
           predicates:
             - Path=/api/order
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8181/realms/spring-boot-microservices-realm
 
 logging:
   level:
@@ -37,4 +42,3 @@ logging:
 
 server:
   port: 8080
-
