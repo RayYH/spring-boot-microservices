@@ -34,6 +34,8 @@ subprojects {
       mavenBom("com.google.protobuf:protobuf-bom:${protobuf_java_version}")
       // noinspection ALL
       mavenBom("org.springframework.cloud:spring-cloud-sleuth-otel-dependencies:${spring_cloud_sleuth_otel_version}")
+      // noinspection ALL
+      mavenBom("org.testcontainers:testcontainers-bom:${org_testcontainers_bom}")
     }
   }
   

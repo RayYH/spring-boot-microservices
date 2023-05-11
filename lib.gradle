@@ -43,4 +43,7 @@ ext.libraries = [
   'servlet-api'                 : 'javax.servlet:javax.servlet-api',
   'slf4j-api'                   : 'org.slf4j:slf4j-api',
   'slf4j-simple'                : 'org.slf4j:slf4j-simple',
+  'testcontainers-junit'        : "org.testcontainers:junit-jupiter",
+  'testcontainers-mysql'        : "org.testcontainers:mysql",
+  'testcontainers-mongodb'      : "org.testcontainers:mongodb",
 ]

@@ -30,6 +30,10 @@ dependencies {
     exclude group: 'junit', module: 'junit'
   }
   // noinspection ALL
+  testImplementation(rootProject.ext.libraries['testcontainers-junit'])
+  // noinspection ALL
+  testImplementation(rootProject.ext.libraries['testcontainers-mongodb'])
+  // noinspection ALL
   annotationProcessor rootProject.ext.libraries['lombok']
   // noinspection ALL
   compileOnly rootProject.ext.libraries['lombok']
