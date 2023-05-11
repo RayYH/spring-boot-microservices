@@ -1,0 +1,31 @@
+plugins {
+  id 'org.springframework.boot'
+  id 'com.rayyounghong.sbms.java-common-conventions'
+  id 'idea'
+}
+
+dependencies {
+  // noinspection ALL
+  annotationProcessor rootProject.ext.libraries['boot-configuration-processor']
+  // noinspection ALL
+  implementation rootProject.ext.libraries['cloud-starter-gateway']
+  // noinspection ALL
+  implementation rootProject.ext.libraries['cloud-starter-netflix-eureka-client']
+}
+
+test {
+  // stops test execution after the first failed test.
+  failFast = true
+}
+
+springBoot {
+  mainClass.set('com.rayyounghong.sbms.apigateway.ApiGatewayApplication')
+  buildInfo {
+    properties {
+      artifact = 'Spring SBMS Api Gateway'
+      version = rootProject.version
+      group = rootProject.group
+      name = 'Spring SBMS Api Gateway'
+    }
+  }
+}

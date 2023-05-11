@@ -18,6 +18,7 @@ pluginManagement {
 
 rootProject.name = 'spring-boot-microservices'
 
+include 'api-gateway'
 include 'discovery-server'
 include 'product-service'
 include 'order-service'
