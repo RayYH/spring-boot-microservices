@@ -29,3 +29,20 @@ services:
       - ./.data/mysql-order-service:/var/lib/mysql
       - ./.conf/mysql/conf.d:/etc/mysql/conf.d
     restart: unless-stopped
+
+  mysql-inventory-service:
+    container_name: mysql-inventory-service
+    image: mysql:8
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: 'inventory_service'
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3397:3306"
+    volumes:
+      - ./.data/mysql-inventory-service:/var/lib/mysql
+      - ./.conf/mysql/conf.d:/etc/mysql/conf.d
+    restart: unless-stopped
