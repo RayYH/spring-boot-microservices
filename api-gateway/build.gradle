@@ -8,13 +8,13 @@ dependencies {
   // noinspection ALL
   annotationProcessor rootProject.ext.libraries['boot-configuration-processor']
   // noinspection ALL
+  implementation rootProject.ext.libraries['boot-starter-oauth2-resource-sever']
+  // noinspection ALL
+  implementation rootProject.ext.libraries['boot-starter-security']
+  // noinspection ALL
   implementation rootProject.ext.libraries['cloud-starter-gateway']
   // noinspection ALL
   implementation rootProject.ext.libraries['cloud-starter-netflix-eureka-client']
-  // noinspection ALL
-  implementation rootProject.ext.libraries['boot-starter-oauth2-resource-sever']
-    // noinspection ALL
-  implementation rootProject.ext.libraries['boot-starter-security']
 }
 
 test {

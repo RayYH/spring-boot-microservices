@@ -44,6 +44,7 @@ ext.libraries = [
   'kafka'                                    : "org.springframework.kafka:spring-kafka",
   'lombok'                                   : 'org.projectlombok:lombok',
   'prometheus'                               : "io.micrometer:micrometer-registry-prometheus",
+  'micrometer-tracing-bridge-brave'          : 'io.micrometer:micrometer-tracing-bridge-brave',
   'mybatis-plus-boot-starter'                : "com.baomidou:mybatis-plus-boot-starter:${mybatis_plus_boot_starter_version}",
   'mysql'                                    : "mysql:mysql-connector-java:${mysql_connector_version}",
   'postgresql'                               : "org.postgresql:postgresql",
