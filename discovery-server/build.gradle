@@ -10,13 +10,9 @@ dependencies {
   // noinspection ALL
   implementation rootProject.ext.libraries['cloud-starter-netflix-eureka-server']
   // noinspection ALL
-  implementation rootProject.ext.libraries['boot-starter-actuator']
-  // noinspection ALL
   implementation rootProject.ext.libraries['boot-starter-security']
   // noinspection ALL
   implementation rootProject.ext.libraries['zipkin-reporter-brave']
-  // noinspection ALL
-  runtimeOnly rootProject.ext.libraries['micrometer-registry-prometheus']
 }
 
 test {

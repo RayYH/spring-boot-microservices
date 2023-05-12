@@ -50,6 +50,10 @@ subprojects {
     implementation rootProject.ext.libraries['cloud-starter-sleuth']
     // noinspection ALL
     implementation rootProject.ext.libraries['cloud-starter-sleuth-zipkin']
+    // noinspection ALL
+    implementation rootProject.ext.libraries['boot-starter-actuator']
+    // noinspection ALL
+    runtimeOnly rootProject.ext.libraries['prometheus']
   }
 }
 
