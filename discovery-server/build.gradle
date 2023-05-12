@@ -11,8 +11,6 @@ dependencies {
   implementation rootProject.ext.libraries['cloud-starter-netflix-eureka-server']
   // noinspection ALL
   implementation rootProject.ext.libraries['boot-starter-security']
-  // noinspection ALL
-  implementation rootProject.ext.libraries['zipkin-reporter-brave']
 }
 
 test {

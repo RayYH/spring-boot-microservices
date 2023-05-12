@@ -53,10 +53,6 @@ subprojects {
     // noinspection ALL
     implementation rootProject.ext.libraries['boot-starter-actuator']
     // noinspection ALL
-    implementation rootProject.ext.libraries['micrometer-tracing-bridge-brave']
-    // noinspection ALL
-    implementation rootProject.ext.libraries['zipkin-reporter-brave']
-    // noinspection ALL
     runtimeOnly rootProject.ext.libraries['prometheus']
   }
 }

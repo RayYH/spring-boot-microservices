@@ -5,13 +5,15 @@ services:
   mongo:
     container_name: mongo
     image: mongo:4.4
-    restart: always
+    env_file:
+      - .env
     ports:
       - "27017:27017"
     expose:
       - "27017"
     volumes:
       - ./.data/mongo:/data/db
+    restart: unless-stopped
 
   mysql-order-service:
     container_name: mysql-order-service
@@ -39,6 +41,35 @@ services:
     volumes:
       - ./.data/mysql-inventory-service:/var/lib/mysql
       - ./.conf/mysql/conf.d:/etc/mysql/conf.d
+    restart: unless-stopped
+
+  postgres-order:
+    container_name: postgres-order
+    image: postgres
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: order-service
+    volumes:
+      - ./.data/postgres-order:/data/postgres
+    expose:
+      - "5431"
+    ports:
+      - "5431:5431"
+    command: -p 5431
+    restart: unless-stopped
+
+  postgres-inventory:
+    container_name: postgres-inventory
+    image: postgres
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: inventory-service
+    volumes:
+      - ./.data/postgres-inventory:/data/postgres
+    ports:
+      - "5432:5432"
     restart: unless-stopped
 
   mysql-keycloak:
@@ -121,3 +152,88 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=password
+
+  discovery-server:
+    image: rayyounghong/sbms-discovery-server:latest
+    build:
+      context: .
+      dockerfile: packaging/discover-server.Dockerfile
+    container_name: discovery-server
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - zipkin
+
+  api-gateway:
+    image: rayyounghong/sbms-api-gateway:latest
+    build:
+      context: .
+      dockerfile: packaging/api-gateway.Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - zipkin
+      - discovery-server
+      - keycloak
+
+  product-service:
+    image: rayyounghong/sbms-product-service:latest
+    build:
+      context: .
+      dockerfile: packaging/product-service.Dockerfile
+    container_name: product-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - mongo
+      - discovery-server
+      - api-gateway
+
+  order-service:
+    image: rayyounghong/sbms-order-service:latest
+    build:
+      context: .
+      dockerfile: packaging/order-service.Dockerfile
+    container_name: order-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-order:5431/order-service
+    depends_on:
+      - postgres-order
+      - broker
+      - zipkin
+      - discovery-server
+      - api-gateway
+
+  inventory-service:
+    image: rayyounghong/sbms-inventory-service:latest
+    build:
+      context: .
+      dockerfile: packaging/inventory-service.Dockerfile
+    container_name: inventory-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-inventory:5432/inventory-service
+    depends_on:
+      - postgres-inventory
+      - discovery-server
+      - api-gateway
+
+  notification-service:
+    image: rayyounghong/sbms-notification-service:latest
+    build:
+      context: .
+      dockerfile: packaging/notification-service.Dockerfile
+    container_name: notification-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - zipkin
+      - broker
+      - discovery-server
+      - api-gateway
