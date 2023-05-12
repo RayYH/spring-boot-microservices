@@ -25,12 +25,11 @@ spring:
       default-topic: notificationTopic
 
 server:
-  port: 8081
+  port: 8080
 
 eureka:
   instance:
     hostname: discovery-server
-    prefer-ip-address: true
   client:
     service-url:
       defaultZone: http://${EUREKA_USERNAME:eureka}:${EUREKA_PASSWORD:password}@${eureka.instance.hostname}:8761/eureka/

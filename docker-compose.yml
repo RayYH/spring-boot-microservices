@@ -127,6 +127,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=password
 
   discovery-server:
+    pull_policy: always
     image: rayyounghong/sbms-discovery-server:latest
     build:
       context: .
@@ -140,6 +141,7 @@ services:
       - zipkin
 
   api-gateway:
+    pull_policy: always
     image: rayyounghong/sbms-api-gateway:latest
     build:
       context: .
@@ -156,6 +158,7 @@ services:
       - keycloak
 
   product-service:
+    pull_policy: always
     image: rayyounghong/sbms-product-service:latest
     build:
       context: .
@@ -170,6 +173,7 @@ services:
       - api-gateway
 
   order-service:
+    pull_policy: always
     image: rayyounghong/sbms-order-service:latest
     build:
       context: .
@@ -187,6 +191,7 @@ services:
       - api-gateway
 
   inventory-service:
+    pull_policy: always
     image: rayyounghong/sbms-inventory-service:latest
     build:
       context: .
@@ -202,6 +207,7 @@ services:
       - api-gateway
 
   notification-service:
+    pull_policy: always
     image: rayyounghong/sbms-notification-service:latest
     build:
       context: .
