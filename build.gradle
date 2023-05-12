@@ -33,11 +33,7 @@ subprojects {
       // noinspection ALL
       mavenBom("com.google.protobuf:protobuf-bom:${protobuf_java_version}")
       // noinspection ALL
-      mavenBom("org.springframework.cloud:spring-cloud-sleuth-otel-dependencies:${spring_cloud_sleuth_otel_version}")
-      // noinspection ALL
       mavenBom("org.testcontainers:testcontainers-bom:${org_testcontainers_bom}")
-      // noinspection ALL
-      mavenBom("io.zipkin.brave:brave-bom:${io_zipkin_brave_version}")
     }
   }
   
@@ -47,6 +43,13 @@ subprojects {
       // noinspection ALL
       cacheChangingModulesFor 0, 'seconds'
     }
+  }
+  
+  dependencies {
+    // noinspection ALL
+    implementation rootProject.ext.libraries['cloud-starter-sleuth']
+    // noinspection ALL
+    implementation rootProject.ext.libraries['cloud-starter-sleuth-zipkin']
   }
 }
 
