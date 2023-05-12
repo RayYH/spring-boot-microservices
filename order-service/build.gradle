@@ -10,6 +10,8 @@ dependencies {
   // noinspection ALL
   implementation rootProject.ext.libraries['boot-starter-aop']
   // noinspection ALL
+  implementation rootProject.ext.libraries['boot-starter-actuator']
+  // noinspection ALL
   implementation rootProject.ext.libraries['boot-starter-web']
   // noinspection ALL
   implementation rootProject.ext.libraries['boot-starter-webflux']
@@ -17,6 +19,8 @@ dependencies {
   implementation rootProject.ext.libraries['boot-starter-validation']
   // noinspection ALL
   implementation rootProject.ext.libraries['cloud-starter-netflix-eureka-client']
+  // noinspection ALL
+  implementation rootProject.ext.libraries['cloud-starter-circuitbreaker-resilience4j']
   // noinspection ALL
   implementation rootProject.ext.libraries['jackson-dataformat-xml']
   // noinspection ALL
