@@ -29,7 +29,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./packaging/inventory-server.Dockerfile
+          file: ./packaging/inventory-service.Dockerfile
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: rayyounghong/sbms-inventory-service:latest
@@ -39,5 +39,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: rayyounghong/sbms-inventory-server
+          repository: rayyounghong/sbms-inventory-service
           short-description: ${{ github.event.repository.description }}
