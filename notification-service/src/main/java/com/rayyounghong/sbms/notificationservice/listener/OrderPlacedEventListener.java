@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class OrderPlacedEventListener {
 
-  @KafkaListener(topics = "notificationTopic")
+  @KafkaListener(topics = "notificationTopic", groupId = "notificationGroup")
   public void listen(OrderPlacedEvent orderPlacedEvent) {
     log.info("Notification Service - OrderPlacedEvent consumed: {}", orderPlacedEvent);
   }

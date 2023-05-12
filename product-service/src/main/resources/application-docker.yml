@@ -3,7 +3,7 @@ spring:
     name: product-service
   data:
     mongodb:
-      host: localhost
+      host: mongo
       port: 27017
       database: product-service
   zipkin:
