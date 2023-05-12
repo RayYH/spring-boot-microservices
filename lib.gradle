@@ -20,8 +20,8 @@ ext.libraries = [
   'cloud-starter-netflix-eureka-server'      : 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server',
   'cloud-starter-netflix-eureka-client'      : 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client',
   'cloud-starter-circuitbreaker-resilience4j': 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j',
-  'cloud-starter-sleuth'                     : "org.springframework.cloud:spring-cloud-starter-sleuth:${sleuth_version}",
-  'cloud-starter-sleuth-zipkin'              : "org.springframework.cloud:spring-cloud-sleuth-zipkin:${sleuth_version}",
+  'cloud-starter-sleuth'                     : "org.springframework.cloud:spring-cloud-starter-sleuth",
+  'cloud-starter-sleuth-zipkin'              : "org.springframework.cloud:spring-cloud-sleuth-zipkin",
   'commons-lang3'                            : "org.apache.commons:commons-lang3:${common_lang3_version}",
   'guava'                                    : "com.google.guava:guava:${com_google_guava}",
   'hutool'                                   : [

@@ -1,4 +1,0 @@
-spring:
-  main:
-    # not best practice to use this, but we are using it for simplicity
-    allow-circular-references: true
