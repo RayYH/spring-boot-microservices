@@ -1,4 +1,4 @@
-name: build-order-service
+name: build-product-service
 
 on:
   workflow_dispatch:

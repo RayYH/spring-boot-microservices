@@ -1,4 +1,4 @@
-name: build-order-service
+name: build-inventory-service
 
 on:
   workflow_dispatch:
@@ -32,7 +32,7 @@ jobs:
           file: ./packaging/inventory-server.Dockerfile
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: rayyounghong/sbms-inventory-server:latest
+          tags: rayyounghong/sbms-inventory-service:latest
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v3
         if: ${{ github.event_name != 'pull_request' }}

@@ -1,4 +1,4 @@
-name: buildapi-gateway
+name: build-api-gateway
 
 on:
   workflow_dispatch:

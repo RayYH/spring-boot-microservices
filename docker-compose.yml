@@ -131,7 +131,7 @@ services:
     image: rayyounghong/sbms-discovery-server:latest
     build:
       context: .
-      dockerfile: packaging/discover-server.Dockerfile
+      dockerfile: packaging/discovery-server.Dockerfile
     container_name: discovery-server
     ports:
       - "8761:8761"
