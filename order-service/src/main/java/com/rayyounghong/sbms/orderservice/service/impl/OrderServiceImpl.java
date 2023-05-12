@@ -25,7 +25,7 @@ public class OrderServiceImpl implements IOrderService {
 
   private final WebClient.Builder webClientBuilder;
 
-  public void placeOrder(OrderRequest orderRequest) {
+  public String placeOrder(OrderRequest orderRequest) {
     Order order = new Order();
     order.setOrderNumber(UUID.randomUUID().toString());
 
@@ -54,6 +54,7 @@ public class OrderServiceImpl implements IOrderService {
 
     if (allProductsInStock) {
       orderRepository.save(order);
+      return "Order placed successfully";
     } else {
       throw new RuntimeException("Product(s) not in stock, order not placed");
     }

@@ -42,3 +42,12 @@ resilience4j:
         waitDurationInOpenState: 5s
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
+  timelimiter:
+    instances:
+      inventory:
+        timeoutDuration: 3s
+  retry:
+    instances:
+      inventory:
+        maxAttempts: 3
+        waitDuration: 5s

@@ -6,6 +6,7 @@ import com.rayyounghong.sbms.orderservice.repository.InventoryRepository;
 import com.rayyounghong.sbms.orderservice.service.IInventoryService;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -26,6 +27,11 @@ public class InventoryServiceImpl implements IInventoryService {
   public List<InventoryResponse> isInStock(List<String> skuCodes) {
     log.info("Checking inventory for skus {}", skuCodes);
 
+    // simulate a delay
+    log.info("Sleeping for 10 seconds...");
+    Thread.sleep(10000);
+
+    log.info("Awake and ready to return inventory status");
     // use skuCode as the key, and Inventory as the value
     Map<String, Inventory> inventories = inventoryRepository.findBySkuCodeIn(skuCodes)
         .stream()
