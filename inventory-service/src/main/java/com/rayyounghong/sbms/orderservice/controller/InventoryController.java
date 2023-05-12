@@ -36,4 +36,11 @@ public class InventoryController {
     log.info("{}", inventoryService.isInStock(skuCode));
     return inventoryService.isInStock(skuCode);
   }
+
+  @GetMapping("/quantity")
+  @ResponseStatus(HttpStatus.OK)
+  public Integer getInventoryQuantity(@RequestParam String skuCode) {
+    log.info("Getting inventory for sku {}", skuCode);
+    return inventoryService.getInventoryQuantity(skuCode);
+  }
 }

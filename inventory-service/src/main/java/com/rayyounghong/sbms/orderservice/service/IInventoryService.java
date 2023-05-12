@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface IInventoryService {
   List<InventoryResponse> isInStock(List<String> skuCodes);
+
+  Integer getInventoryQuantity(String skuCode);
 }

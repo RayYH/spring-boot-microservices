@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
   List<Inventory> findBySkuCodeIn(List<String> skuCodes);
+
+  List<Inventory> findBySkuCode(String skuCode);
 }

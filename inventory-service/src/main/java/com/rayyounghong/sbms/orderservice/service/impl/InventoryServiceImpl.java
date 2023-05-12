@@ -27,9 +27,11 @@ public class InventoryServiceImpl implements IInventoryService {
   public List<InventoryResponse> isInStock(List<String> skuCodes) {
     log.info("Checking inventory for skus {}", skuCodes);
 
-    // simulate a delay
-    log.info("Sleeping for 10 seconds...");
-    Thread.sleep(10000);
+    // simulate a random delay in 0 1 2 seconds
+    Random random = new Random();
+    int randomDelay = random.nextInt(3);
+    log.info("Sleeping for {} seconds...", randomDelay);
+    Thread.sleep(randomDelay * 1000);
 
     log.info("Awake and ready to return inventory status");
     // use skuCode as the key, and Inventory as the value
@@ -49,5 +51,14 @@ public class InventoryServiceImpl implements IInventoryService {
       inventoryResponse.setInStock(inventories.get(skuCode).getQuantity() > 0);
       return inventoryResponse;
     }).collect(Collectors.toList());
+  }
+
+  public Integer getInventoryQuantity(String skuCode) {
+    // return quantity of the given skuCode
+    List<Inventory> inventories = inventoryRepository.findBySkuCode(skuCode);
+    if (inventories == null || inventories.isEmpty()) {
+      return 0;
+    }
+    return inventories.stream().findFirst().get().getQuantity();
   }
 }

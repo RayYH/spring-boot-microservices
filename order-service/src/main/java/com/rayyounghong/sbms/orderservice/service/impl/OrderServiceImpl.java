@@ -25,6 +25,14 @@ public class OrderServiceImpl implements IOrderService {
 
   private final WebClient.Builder webClientBuilder;
 
+  public Integer getInventoryQuantity(String skuCode) {
+    return webClientBuilder.build().get()
+        .uri("http://inventory-service/api/inventory/quantity", uriBuilder
+            -> uriBuilder.queryParam("skuCode", skuCode).build())
+        .retrieve().bodyToMono(Integer.class)
+        .block();
+  }
+
   public String placeOrder(OrderRequest orderRequest) {
     Order order = new Order();
     order.setOrderNumber(UUID.randomUUID().toString());
