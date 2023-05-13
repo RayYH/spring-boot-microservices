@@ -15,7 +15,7 @@ spring:
     sampler:
       probability: 1.0
   kafka:
-    bootstrap-servers: kafka:9092
+    bootstrap-servers: broker:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -28,11 +28,9 @@ server:
   port: 8080
 
 eureka:
-  instance:
-    hostname: discovery-server
   client:
     service-url:
-      defaultZone: http://${EUREKA_USERNAME:eureka}:${EUREKA_PASSWORD:password}@${eureka.instance.hostname}:8761/eureka/
+      defaultZone: http://${EUREKA_USERNAME:eureka}:${EUREKA_PASSWORD:password}@discovery-server:8761/eureka/
 management:
   health:
     circuitbreakers:
