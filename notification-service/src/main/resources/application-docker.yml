@@ -12,6 +12,8 @@ server:
   port: 8080
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     service-url:
       defaultZone: http://${EUREKA_USERNAME:eureka}:${EUREKA_PASSWORD:password}@discovery-server:8761/eureka/

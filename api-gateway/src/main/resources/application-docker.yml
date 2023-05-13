@@ -40,6 +40,8 @@ eureka:
   client:
     service-url:
       defaultZone: http://${EUREKA_USERNAME:eureka}:${EUREKA_PASSWORD:password}@discovery-server:8761/eureka/
+  instance:
+    prefer-ip-address: true
 
 logging:
   pattern:
