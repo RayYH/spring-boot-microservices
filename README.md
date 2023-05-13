@@ -39,5 +39,7 @@ $ cp .env.example .env
 # stop the containers and remove the volumes
 $ docker compose down -v
 $ docker compose -f docker-compose-data.yml up -d --force-recreate
+# wait for the containers to be ready
+$ docker compose -f docker-compose-data.yml logs -f
 $ ./gradlww bootRun --parallel
 ```

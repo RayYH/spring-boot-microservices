@@ -3,6 +3,7 @@ package com.rayyounghong.sbms.orderservice.service.impl;
 import com.rayyounghong.sbms.orderservice.dto.InventoryResponse;
 import com.rayyounghong.sbms.orderservice.dto.OrderLineItemsDto;
 import com.rayyounghong.sbms.orderservice.dto.OrderRequest;
+import com.rayyounghong.sbms.orderservice.event.OrderPlacedEvent;
 import com.rayyounghong.sbms.orderservice.model.Order;
 import com.rayyounghong.sbms.orderservice.model.OrderLineItems;
 import com.rayyounghong.sbms.orderservice.repository.OrderRepository;
@@ -13,8 +14,11 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import brave.Span;
+import brave.Tracer;
 
 @Service
 @Slf4j
@@ -24,6 +28,10 @@ public class OrderServiceImpl implements IOrderService {
   private final OrderRepository orderRepository;
 
   private final WebClient.Builder webClientBuilder;
+
+  private final Tracer tracer;
+
+  private final KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
 
   public Integer getInventoryQuantity(String skuCode) {
     return webClientBuilder.build().get()
@@ -49,22 +57,33 @@ public class OrderServiceImpl implements IOrderService {
         .map(OrderLineItems::getSkuCode)
         .collect(Collectors.toList());
 
-    InventoryResponse[] inventoryResponses =
-        webClientBuilder.build().get().uri("http://inventory-service/api/inventory", uriBuilder
-                -> uriBuilder.queryParam("skuCode", skuCodes).build())
-            .retrieve().bodyToMono(InventoryResponse[].class).block();
+    Span span = tracer.nextSpan().name("inventory-service-look-up");
 
-    boolean allProductsInStock = false;
-    if (inventoryResponses != null) {
-      allProductsInStock = Arrays.stream(inventoryResponses)
-          .allMatch(InventoryResponse::isInStock);
+    try (Tracer.SpanInScope ignored = tracer.withSpanInScope(span.start())) {
+      log.info("Calling inventory-service to check the availability of products with skuCodes: {}",
+          skuCodes);
+      InventoryResponse[] inventoryResponses =
+          webClientBuilder.build().get().uri("http://inventory-service/api/inventory", uriBuilder
+                  -> uriBuilder.queryParam("skuCode", skuCodes).build())
+              .retrieve().bodyToMono(InventoryResponse[].class).block();
+
+      boolean allProductsInStock = false;
+      if (inventoryResponses != null) {
+        allProductsInStock = Arrays.stream(inventoryResponses)
+            .allMatch(InventoryResponse::isInStock);
+      }
+
+      if (allProductsInStock) {
+        orderRepository.save(order);
+        log.info("Order placed successfully, order number: {}", order.getOrderNumber());
+        kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(order.getOrderNumber()));
+        return "Order placed successfully";
+      } else {
+        throw new RuntimeException("Product(s) not in stock, order not placed");
+      }
     }
-
-    if (allProductsInStock) {
-      orderRepository.save(order);
-      return "Order placed successfully";
-    } else {
-      throw new RuntimeException("Product(s) not in stock, order not placed");
+    finally {
+      span.finish();
     }
   }
 
